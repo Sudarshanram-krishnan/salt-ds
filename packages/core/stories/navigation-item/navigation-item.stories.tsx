@@ -3,6 +3,8 @@ import {
   FlexLayout,
   NavigationItem,
   NavigationItemProps,
+  NavigationItemRenderProps,
+  StackLayout,
 } from "@salt-ds/core";
 import { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
@@ -582,6 +584,61 @@ export const VerticalNestedGroupNoIcon = () => {
           </li>
         ))}
       </ul>
+    </nav>
+  );
+};
+
+export const WithRenderProp = () => {
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const render: React.FC<
+    NavigationItemRenderProps<HTMLAnchorElement | HTMLButtonElement>
+  > = (props) => {
+    console.log("render NavigationItem with props", props);
+    const { href, isParent, elementProps } = props;
+    if (isParent) {
+      return <button {...elementProps} />;
+    } else {
+      return <a {...elementProps} href={href} />;
+    }
+  };
+
+  return (
+    <nav>
+      <StackLayout
+        as="ul"
+        gap="var(--salt-size-border)"
+        style={{
+          width: 250,
+          listStyle: "none",
+          paddingLeft: 0,
+        }}
+      >
+        <li>
+          <NavigationItem
+            expanded={expanded}
+            level={0}
+            onExpand={() => setExpanded(!expanded)}
+            orientation="vertical"
+            parent={true}
+            render={render}
+          >
+            Render Prop Parent
+          </NavigationItem>
+        </li>
+        {expanded ? (
+          <li>
+            <NavigationItem
+              href="#"
+              level={1}
+              orientation="vertical"
+              render={render}
+            >
+              Render Prop Child
+            </NavigationItem>
+          </li>
+        ) : null}
+      </StackLayout>
     </nav>
   );
 };

@@ -1,4 +1,4 @@
-import { NavigationItem } from "@salt-ds/core";
+import { NavigationItem, NavigationItemRenderProps } from "@salt-ds/core";
 import { NotificationIcon } from "@salt-ds/icons";
 
 describe("GIVEN a NavItem", () => {
@@ -97,6 +97,69 @@ describe("GIVEN a NavItem", () => {
           "aria-expanded",
           "true"
         );
+      });
+    });
+
+    describe("AND `render` is passed", () => {
+      it("should call `render` to create parent item", () => {
+        const mockRender = cy.stub().as("render");
+        cy.mount(
+          <NavigationItem
+            active={true}
+            expanded={true}
+            href="https://www.saltdesignsystem.com"
+            level={2}
+            parent={true}
+            orientation="vertical"
+            render={mockRender}
+          >
+            Navigation Item
+          </NavigationItem>
+        );
+        cy.get("@render").should("have.been.calledWithMatch", {
+          isParent: true,
+          active: true,
+          elementProps: {
+            "aria-expanded": true,
+            "aria-label": "expand",
+            className: Cypress.sinon.match.string,
+            children: Cypress.sinon.match.any,
+          },
+          expanded: true,
+          href: "https://www.saltdesignsystem.com",
+          level: 2,
+          orientation: "vertical",
+        });
+      });
+      it("should call `render` to create child item", () => {
+        const mockRender = cy.stub().as("render");
+        cy.mount(
+          <NavigationItem
+            active={true}
+            expanded={true}
+            href="https://www.saltdesignsystem.com"
+            level={2}
+            parent={false}
+            orientation="vertical"
+            render={mockRender}
+          >
+            Navigation Item
+          </NavigationItem>
+        );
+        cy.get("@render").should("have.been.calledWithMatch", {
+          isParent: false,
+          active: true,
+          elementProps: {
+            "aria-current": "page",
+            "aria-label": "change page",
+            className: Cypress.sinon.match.string,
+            children: Cypress.sinon.match.any,
+          },
+          expanded: true,
+          href: "https://www.saltdesignsystem.com",
+          level: 2,
+          orientation: "vertical",
+        });
       });
     });
   });
