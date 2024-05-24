@@ -12,13 +12,13 @@
 
 /* Not implemented */
 
-.saltOptionGroup-label {
-  position: sticky;
-  top: -1px;
-}
+/*.saltOptionGroup-label {*/
+/*  position: sticky;*/
+/*  top: -1px;*/
+/*}*/
 
-.saltOptionGroup-stuck {
-  background: var(--salt-container-primary-background);
-  box-shadow: var(--salt-overlayable-shadow);
-  z-index: 2;
-}
+/*.saltOptionGroup-stuck {*/
+/*  background: var(--salt-container-primary-background);*/
+/*  box-shadow: var(--salt-overlayable-shadow);*/
+/*  z-index: 2;*/
+/*}*/

@@ -9,6 +9,7 @@ import {
   Option,
   Input,
   StatusIndicator,
+  Tooltip,
 } from "@salt-ds/core";
 import { ChangeEvent, CSSProperties, useState } from "react";
 import {
@@ -158,43 +159,49 @@ function List({
           endItem={
             <StackLayout direction="row" gap={1}>
               {sortable && (
-                <Button
-                  variant="secondary"
-                  onClick={() =>
-                    setSort((old) => {
-                      switch (old) {
-                        case "asc":
-                          return "desc";
-                        case "desc":
-                          return null;
-                        default:
-                          return "asc";
-                      }
-                    })
-                  }
-                  aria-label="Sort alphabetically"
-                >
-                  <SortIcon sort={sort} aria-hidden />
-                </Button>
+                <Tooltip content="Sort alphabetically">
+                  <Button
+                    variant="secondary"
+                    onClick={() =>
+                      setSort((old) => {
+                        switch (old) {
+                          case "asc":
+                            return "desc";
+                          case "desc":
+                            return null;
+                          default:
+                            return "asc";
+                        }
+                      })
+                    }
+                    aria-label="Sort alphabetically"
+                  >
+                    <SortIcon sort={sort} aria-hidden />
+                  </Button>
+                </Tooltip>
               )}
               {reorderable && (
                 <>
-                  <Button
-                    disabled={selected.length === 0}
-                    variant="secondary"
-                    onClick={handleMoveUp}
-                    aria-label="Move items up"
-                  >
-                    <ChevronUpIcon aria-hidden />
-                  </Button>
-                  <Button
-                    disabled={selected.length === 0}
-                    variant="secondary"
-                    onClick={handleMoveDown}
-                    aria-label="Move items down"
-                  >
-                    <ChevronDownIcon aria-hidden />
-                  </Button>
+                  <Tooltip content="Move items up">
+                    <Button
+                      disabled={selected.length === 0}
+                      variant="secondary"
+                      onClick={handleMoveUp}
+                      aria-label="Move items up"
+                    >
+                      <ChevronUpIcon aria-hidden />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip content="Move items down">
+                    <Button
+                      disabled={selected.length === 0}
+                      variant="secondary"
+                      onClick={handleMoveDown}
+                      aria-label="Move items down"
+                    >
+                      <ChevronDownIcon aria-hidden />
+                    </Button>
+                  </Tooltip>
                 </>
               )}
             </StackLayout>
