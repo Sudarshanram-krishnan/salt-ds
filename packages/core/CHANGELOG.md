@@ -1,5 +1,20 @@
 # @salt-ds/core
 
+## 1.30.0
+
+### Minor Changes
+
+- 6cde7ea: Added `Divider`.
+
+  ```tsx
+  <Divider />
+  <Divider variant={variant} orientation={orientation} />
+  ```
+
+### Patch Changes
+
+- 4697c25: Fixed content alignment of Option, OptionGoup, MenuItem and MenuGroup.
+
 ## 1.29.0
 
 ### Minor Changes
